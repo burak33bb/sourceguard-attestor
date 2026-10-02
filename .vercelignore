@@ -1,0 +1,5 @@
+node_modules
+package
+*.tgz
+*.tar
+sourceguard-project-pages

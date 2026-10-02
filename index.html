@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SourceGuard</title>
+    <meta
+      name="description"
+      content="A GenLayer app for wallet-signed source-backed claim attestations."
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Crect width="64" height="64" rx="12" fill="%23091216"/%3E%3Cpath d="M14 44 30 11l20 42H15l7-13 4 8h15L30 24 20 44Z" fill="%23f2f7f3"/%3E%3Cpath d="M39 15h12v12H39z" fill="%238be66b"/%3E%3C/svg%3E'
+    />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="mark" aria-hidden="true"></span>
+          <div>
+            <strong>SourceGuard</strong>
+            <span>GenLayer attestation desk</span>
+          </div>
+        </div>
+        <nav class="top-actions" aria-label="Evidence links">
+          <a
+            href="https://github.com/burak33bb/sourceguard-project"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
+          <a
+            href="https://explorer-studio.genlayer.com/address/0x326bC3E58Ea37bd288E4B15DF6848706C3ec5E4A"
+            target="_blank"
+            rel="noreferrer"
+            >Explorer</a
+          >
+        </nav>
+      </header>
+
+      <section class="hero-grid">
+        <aside class="contract-panel">
+          <p class="kicker">Studionet contract</p>
+          <h1>Wallet-signed claim attestations on GenLayer.</h1>
+          <p class="summary">
+            Connect a wallet, submit sourced claims to the deployed Intelligent
+            Contract, and read the latest consensus report.
+          </p>
+
+          <div class="address-box">
+            <span>Contract</span>
+            <code id="contract-address">0x326bC3E58Ea37bd288E4B15DF6848706C3ec5E4A</code>
+          </div>
+
+          <div class="signal-grid">
+            <div>
+              <span>Network</span>
+              <strong id="network-id">61999</strong>
+            </div>
+            <div>
+              <span>Write path</span>
+              <strong>Wallet</strong>
+            </div>
+            <div>
+              <span>Read path</span>
+              <strong>SDK</strong>
+            </div>
+          </div>
+          <div class="network-note">
+            <span>RPC</span>
+            <code id="network-rpc">https://studio.genlayer.com/api</code>
+          </div>
+        </aside>
+
+        <section class="review-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="kicker">Wallet</p>
+              <h2 id="wallet-title">Not connected</h2>
+            </div>
+            <div class="wallet-actions">
+              <button type="button" id="connect-wallet">Connect wallet</button>
+              <button type="button" class="secondary" id="disconnect-wallet" hidden>
+                Disconnect
+              </button>
+            </div>
+          </div>
+
+          <form id="claim-form" class="claim-form">
+            <label>
+              Claim
+              <textarea
+                id="claim"
+                rows="4"
+                placeholder="Example: This repository documents a reusable GenLayer contract."
+              ></textarea>
+            </label>
+
+            <label>
+              Primary source
+              <input
+                id="source-one"
+                type="url"
+                placeholder="https://github.com/..."
+              />
+            </label>
+
+            <div class="field-row">
+              <label>
+                Source 2
+                <input id="source-two" type="url" placeholder="Optional URL" />
+              </label>
+              <label>
+                Source 3
+                <input id="source-three" type="url" placeholder="Optional URL" />
+              </label>
+            </div>
+
+            <div class="button-row">
+              <button type="button" id="submit-attestation">
+                Submit to GenLayer
+              </button>
+              <button type="button" class="secondary" id="read-latest">
+                Read latest
+              </button>
+            </div>
+          </form>
+        </section>
+      </section>
+
+      <section class="output-grid">
+        <article class="output-card">
+          <div class="card-top">
+            <div>
+              <p class="kicker">Transaction</p>
+              <h2 id="tx-title">Waiting</h2>
+            </div>
+            <span class="live-dot"></span>
+          </div>
+          <pre id="tx-output">Connect a wallet and submit a sourced claim.</pre>
+        </article>
+
+        <article class="output-card verdict-card" id="verdict-card">
+          <div class="card-top">
+            <div>
+              <p class="kicker">Latest report</p>
+              <h2 id="read-title">Not checked</h2>
+            </div>
+            <button type="button" class="icon-button" id="copy-report" disabled>
+              Copy
+            </button>
+          </div>
+          <div class="verdict-summary">
+            <strong id="verdict-label">No report</strong>
+            <span id="confidence-label">Confidence -</span>
+          </div>
+          <p id="reasoning-output" class="reasoning">
+            Use Read latest to query the deployed contract through GenLayerJS.
+          </p>
+          <div class="source-list" id="source-list"></div>
+          <details class="raw-details">
+            <summary>Raw report</summary>
+            <pre id="read-output"></pre>
+          </details>
+        </article>
+      </section>
+
+      <section class="history-panel">
+        <div class="card-top">
+          <div>
+            <p class="kicker">Claim history</p>
+            <h2>Recent local activity</h2>
+          </div>
+          <button type="button" class="icon-button" id="clear-history">
+            Clear
+          </button>
+        </div>
+        <div id="history-list" class="history-list"></div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
